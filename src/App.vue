@@ -3,6 +3,7 @@
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <div class="container">
     <Header title="Task Tracker"/>
+    <AddTask @add-task="addTask"/>
     <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
@@ -11,13 +12,15 @@
 // import HelloWorld from './components/HelloWorld.vue'
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
     // HelloWorld
     Header,
-    Tasks
+    Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -25,6 +28,9 @@ export default {
     }
   },
   methods: {
+    addTask(task){
+      this.tasks = [...this.tasks,task];
+    },
     deleteTask(id){
       if(confirm("Are you sure?")){
         this.tasks = this.tasks.filter((task) => task.id !== id);
