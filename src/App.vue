@@ -2,8 +2,8 @@
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
   <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   <div class="container">
-    <Header title="Task Tracker"/>
-    <AddTask @add-task="addTask"/>
+    <Header @toggle-add-task="toggleAddTask" title="Task Tracker"/>
+    <AddTask v-show="showAddTask" @add-task="addTask"/>
     <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
@@ -25,9 +25,13 @@ export default {
   data() {
     return {
       tasks : [],
+      showAddTask: false
     }
   },
   methods: {
+    toggleAddTask(){
+      this.showAddTask = !this.showAddTask;
+    },
     addTask(task){
       this.tasks = [...this.tasks,task];
     },
